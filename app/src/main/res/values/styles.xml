@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.iShaQti" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/ishaqti_red</item>
+        <item name="colorPrimaryDark">@color/ishaqti_red</item>
+        <item name="colorAccent">@color/ishaqti_teal</item>
+        <item name="android:statusBarColor">@color/ishaqti_red</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+</resources>

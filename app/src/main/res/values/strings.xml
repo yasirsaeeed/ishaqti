@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">iShaQti</string>
+    <string name="web_url">https://ishaqti.nhmmp.gov.in/</string>
+    <string name="no_internet_title">No Internet Connection</string>
+    <string name="no_internet_message">Please check your internet connection and try again.</string>
+    <string name="retry">Retry</string>
+    <string name="permission_title">Camera &amp; Location Access Needed</string>
+    <string name="permission_message">This app needs Camera and Location permission to record field visits and photos correctly. Please allow both to continue.</string>
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="open_settings">Open App Settings</string>
+    <string name="permission_status_denied">Permission denied. Please allow Camera and Location to continue.</string>
+    <string name="permission_status_settings">Permission was permanently denied. Please open Settings and allow Camera and Location manually.</string>
+</resources>
