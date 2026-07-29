@@ -195,7 +195,11 @@ class MainActivity : AppCompatActivity() {
                 error: WebResourceError
             ) {
                 super.onReceivedError(view, request, error)
-                if (request.isForMainFrame) {
+                // Only treat this as "no internet" if we're genuinely offline.
+                // Fast redirects (e.g. logout, login) can trigger benign cancelled-request
+                // errors on the main frame even while fully connected -- ignore those and
+                // let the WebView carry on to wherever it's redirecting.
+                if (request.isForMainFrame && !isOnline()) {
                     showNoInternet()
                 }
             }
