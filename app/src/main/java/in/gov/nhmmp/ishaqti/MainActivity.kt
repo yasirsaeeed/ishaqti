@@ -164,7 +164,7 @@ class MainActivity : AppCompatActivity() {
         settings.setGeolocationEnabled(true)
         settings.mediaPlaybackRequiresUserGesture = false
         settings.cacheMode = WebSettings.LOAD_DEFAULT
-        settings.mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
+        settings.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
 
         CookieManager.getInstance().setAcceptCookie(true)
         CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
@@ -172,13 +172,21 @@ class MainActivity : AppCompatActivity() {
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                 val url = request.url
-                return if (url.host == homeHost) {
-                    false
-                } else {
-                    try {
-                        startActivity(Intent(Intent.ACTION_VIEW, url))
-                    } catch (_: Exception) {
+                if (url.host == homeHost) {
+                    if (url.scheme.equals("http", ignoreCase = true)) {
+                        // The site's own server sometimes redirects to a plain http:// link
+                        // (e.g. after logout). Force it back to https instead of loading it
+                        // in the clear.
+                        val httpsUrl = url.buildUpon().scheme("https").build()
+                        view.loadUrl(httpsUrl.toString())
+                        return true
                     }
+                    return false // keep it inside the app
+                }
+                return try {
+                    startActivity(Intent(Intent.ACTION_VIEW, url))
+                    true
+                } catch (_: Exception) {
                     true
                 }
             }
